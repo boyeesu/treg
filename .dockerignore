@@ -1,0 +1,46 @@
+# Keep the build context small and reproducible. Both the dashboard build and the runtime read the
+# tracked source tree, so only generated, local or secret material is excluded here.
+#
+# Do NOT exclude README.md or LICENSE: pyproject.toml references them (readme / license file) and
+# the project build fails without them.
+
+# VCS and CI
+.git
+.github
+
+# Local environments and caches
+.venv
+**/__pycache__
+*.pyc
+.pytest_cache
+.ruff_cache
+.mypy_cache
+node_modules
+**/node_modules
+frontend/test-results
+frontend/playwright-report
+.playwright-cli
+scripts/.dev-home
+
+# Local state and secrets - never bake into an image
+.env
+.env.*
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+.secret
+.secrets
+
+# Directories the server does not need at runtime
+marketing
+assets
+docs
+tests
+examples
+e2e_check.py
+e2e-server.sh
+
+# Exclude locally built dashboard output; the Dockerfile supplies it from the dashboard stage.
+src/treg/web/dashboard

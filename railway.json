@@ -1,0 +1,19 @@
+# Railway service configuration.
+#
+# The Dockerfile builds the dashboard with Node and runs the server with Python; the app
+# honors Railway's injected $PORT and applies its own schema migration at startup, so no
+# separate release/deploy command is required.
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "DOCKERFILE",
+    "dockerfilePath": "Dockerfile"
+  },
+  "deploy": {
+    "startCommand": "python -m treg",
+    "healthcheckPath": "/meta",
+    "healthcheckTimeout": 300,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
+  }
+}
